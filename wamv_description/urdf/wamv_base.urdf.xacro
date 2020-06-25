@@ -103,24 +103,30 @@
   <link name="dummy_link">
     <visual>
       <geometry>
-        <mesh filename="package://wamv_description/models/WAM-V-Base/mesh/WAM-V-Base.dae"/>
+        <mesh filename="package://wamv_description/models/hovercraft/model.dae"/>
       </geometry>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://wamv_description/models/hovercraft/model.dae"/>
+		</geometry>
+	</collision>
 
     <!-- Left base collisions -->
-    <xacro:main_collisions prefix="left" reflect="1" />
+    <!--><xacro:main_collisions prefix="left" reflect="1" /><-->
 
     <!-- Right side collisions -->
-    <xacro:main_collisions prefix="right" reflect="-1" />
+    <!--><xacro:main_collisions prefix="right" reflect="-1" /><-->
 
      <!-- Top base -->
+<!-->
     <collision name="top_base">
       <origin xyz="0 -0 1.25" rpy="0 0 0" />
       <geometry>
         <box size="1.85 1 0.1" />
       </geometry>
     </collision>
-
+<-->
     <inertial>
       <!-- From WAM-V spec sheet -->
       <mass value="180.0"/>

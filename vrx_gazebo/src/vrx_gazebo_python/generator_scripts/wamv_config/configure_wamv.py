@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import rospy
 import os
 
-from compliance import Sensor_Compliance
-from compliance import Thruster_Compliance
+from .compliance import Sensor_Compliance
+from .compliance import Thruster_Compliance
 
 from .. utils import create_xacro_file
 from .. utils import add_gazebo_thruster_config
