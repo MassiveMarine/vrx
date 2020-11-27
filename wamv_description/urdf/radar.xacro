@@ -4,62 +4,75 @@
     <link name="${prefix}_radar_link">
 
       <visual name="${prefix}_radar_visual">
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://wamv_description/models/radar/model.dae"/>
+          <mesh filename="package://wamv_description/models/radar/model.dae" />
         </geometry>
       </visual>
 
       <collision name="${prefix}_radar_collision">
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://wamv_description/models/radar/model.dae"/>
+          <mesh filename="package://wamv_description/models/radar/model.dae" />
         </geometry>
       </collision>
 
-     <inertial>
-         <origin xyz="0 0 0.5" rpy="0 0 0"/>
-         <mass value="1"/>
-         <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+      <inertial>
+        <origin xyz="0 0 0.5" rpy="0 0 0" />
+        <mass value="1" />
+        <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
       </inertial>
 
     </link>
-	
 
-    <joint name ="${prefix}_chasis_radar_joint" type="fixed">
-      <origin xyz="${position}" rpy="${orientation}"/>
-      <parent link="base_link"/>
-      <child link="${prefix}_radar_link"/>
+
+    <joint name="${prefix}_chasis_radar_joint" type="fixed">
+      <origin xyz="${position}" rpy="${orientation}" />
+      <parent link="base_link" />
+      <child link="${prefix}_radar_link" />
     </joint>
 
-<gazebo reference="${prefix}_radar_link">
+    <gazebo reference="${prefix}_radar_link">
 
-<sensor type="ray" name="range">
-	<update_rate>10</update_rate>
-	<visualize>true</visualize>
-	<ray>
-	  <scan>
-	    <horizontal>
-	      <samples>10</samples>
-	      <resolution>1</resolution>
-	      <min_angle>-0.7</min_angle>
-	      <max_angle>0.7</max_angle>
-	    </horizontal>
-	  </scan>
-	  <range>
-	    <min>1</min> <!-- do not change (smaller values cause issues) -->
-	    <max>35</max>   <!-- do not change (bigger values cause issues) -->
-	    <resolution>0.01</resolution>
-	  </range>
-	</ray>
-	<plugin name="range" filename="libainstein_radar_gazebo_plugins.so">
-	  <alwaysOn>true</alwaysOn>
-	  <updateRate>10</updateRate>
-	  <frameName>${prefix}_radar_link</frameName>
-	</plugin>
-    </sensor>
+      <gravity>true</gravity>
+      <sensor type="ray" name="head_hokuyo_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>1</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
+            </horizontal>
+	    <vertical>
+		<samples>90</samples>
+		<resolution>1</resolution>
+		<min_angle>-0.049</min_angle>
+              	<max_angle>0.049</max_angle>
+	    </vertical>
+          </scan>
+          <range>
+            <min>40</min>
+            <max>200</max>
+            <resolution>0.001</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.0</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <robotNamespace></robotNamespace>
+          <topicName>radar_2d</topicName>
+          <frameName>${prefix}_radar_link</frameName>
+        </plugin>
+      </sensor>
 
-</gazebo>
+    </gazebo>
 
   </xacro:macro>
 </robot>
