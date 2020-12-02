@@ -126,7 +126,7 @@
     <!-- Gazebo camera setup -->
     <gazebo reference="${name}_link">
       <sensor type="camera" name="${name}_sensor">
-        <update_rate>30.0</update_rate>
+        <update_rate>5</update_rate>
         <camera name="${name}_camera">
           <horizontal_fov>1.3962634</horizontal_fov>
           <image>
@@ -136,7 +136,7 @@
           </image>
           <clip>
             <near>0.05</near>
-            <far>300</far>
+            <far>100</far>
           </clip>
           <noise>
             <type>gaussian</type>
